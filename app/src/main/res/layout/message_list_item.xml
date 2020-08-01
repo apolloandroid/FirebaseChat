@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/text_message_user"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="username"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_message_time"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="time"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.library.bubbleview.BubbleTextView
+            android:id="@+id/text_message_text"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:text="messagetext"
+            android:textColor="#fff"
+            android:padding="10dp"
+            app:angle="8dp"
+            app:arrowCenter="false"
+            app:arrowHeight="10dp"
+            app:arrowLocation="left"
+            app:arrowPosition="10dp"
+            app:arrowWidth="8dp"
+            app:bubbleColor="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_message_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
