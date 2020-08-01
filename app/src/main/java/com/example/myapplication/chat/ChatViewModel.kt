@@ -1,35 +1,32 @@
 package com.example.myapplication.chat
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.repository.remote.RemoteDataBase
 import kotlinx.coroutines.*
 
-class ChatViewModel : ViewModel() {
+class ChatViewModel(private val dataBase: RemoteDataBase, application: Application) : ViewModel() {
+    private val viewModelJob = Job()
+    private val viewModelScope = CoroutineScope(Dispatchers.IO + viewModelJob)
+
     private val _onMessageSend = MutableLiveData<Boolean>()
     val onMessageSend: LiveData<Boolean>
         get() = _onMessageSend
 
-    private val messageDataBase =
-        RemoteDataBase
-    private val viewModelJob = Job()
-    private val scope = CoroutineScope(Dispatchers.IO + viewModelJob)
-
-    fun onFabClick(newMessageText: String) {
-        scope.launch {
-            sendMessage(newMessageText)
-        }
+    fun onSendButtonClickListener() {
         _onMessageSend.value = true
     }
 
-    private suspend fun sendMessage(newMessageText: String) {
-        withContext(Dispatchers.Main) {
-            messageDataBase.insert(newMessageText)
+    fun sendMessage(newMessageText: String) {
+        viewModelScope.launch {
+            dataBase.insert(newMessageText)
         }
+        onMessageSent()
     }
 
-    fun onFabClickDone() {
+    private fun onMessageSent() {
         _onMessageSend.value = false
     }
 

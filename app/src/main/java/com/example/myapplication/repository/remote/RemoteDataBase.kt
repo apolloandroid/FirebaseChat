@@ -6,7 +6,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 object RemoteDataBase {
 
-    fun insert(newMessage:String) {
+    suspend fun insert(newMessage: String) {
         FirebaseDatabase.getInstance().reference.push().setValue(
             Message(
                 FirebaseAuth.getInstance().currentUser?.email!!,
