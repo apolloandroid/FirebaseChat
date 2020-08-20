@@ -1,18 +1,15 @@
 package com.example.myapplication.chat
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.repository.remote.RemoteDataBase
 
 class ChatViewModelFactory(
-    private val dataBase: RemoteDataBase,
-    private val application: Application
-) : ViewModelProvider.Factory {
+    private val context: Context) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ChatViewModel::class.java)) {
-            return ChatViewModel(dataBase, application) as T
+            return ChatViewModel(context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -7,18 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.myapplication.databinding.ChatFragmentBinding
-import com.example.myapplication.repository.remote.RemoteDataBase
+import javax.inject.Inject
 
 
 class ChatFragment : Fragment() {
 
     private lateinit var binding: ChatFragmentBinding
-    private val viewModel: ChatViewModel by lazy { initViewModel() }
+
+    @Inject
+    lateinit var viewModel: ChatViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        injectFragment()
         binding = ChatFragmentBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.listMessages.adapter = MessageAdapter
@@ -31,10 +34,8 @@ class ChatFragment : Fragment() {
         return binding.root
     }
 
-    private fun initViewModel(): ChatViewModel {
-        val application = requireNotNull(activity).application
-        val chatViewModelFactory = ChatViewModelFactory(RemoteDataBase, application)
-        return chatViewModelFactory.create(ChatViewModel::class.java)
+    private fun injectFragment() {
+        val component = DaggerAppComponent
     }
 
     private fun sendMessage() {

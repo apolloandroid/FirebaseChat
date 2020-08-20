@@ -1,13 +1,14 @@
 package com.example.myapplication.chat
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.repository.remote.RemoteDataBase
 import kotlinx.coroutines.*
 
-class ChatViewModel(private val dataBase: RemoteDataBase, application: Application) : ViewModel() {
+class ChatViewModel(private val context: Context) : ViewModel() {
+
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
@@ -21,7 +22,7 @@ class ChatViewModel(private val dataBase: RemoteDataBase, application: Applicati
 
     fun sendMessage(newMessageText: String) {
         viewModelScope.launch {
-            dataBase.insert(newMessageText)
+            RemoteDataBase.insert(newMessageText)
         }
         onMessageSent()
     }
