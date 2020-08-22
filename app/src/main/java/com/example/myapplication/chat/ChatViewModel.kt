@@ -24,10 +24,6 @@ class ChatViewModel(private val context: Context) : ViewModel() {
         viewModelScope.launch {
             RemoteDataBase.insert(newMessageText)
         }
-        onMessageSent()
-    }
-
-    private fun onMessageSent() {
         _onMessageSend.value = false
     }
 
